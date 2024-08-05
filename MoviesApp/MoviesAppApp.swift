@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NetworkLayer
 
 @main
 struct MoviesAppApp: App {
