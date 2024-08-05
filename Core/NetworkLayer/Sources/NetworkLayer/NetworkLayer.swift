@@ -25,6 +25,13 @@ public protocol Networkable {
     ) -> AnyPublisher<T, Error> where M.Output == T
 }
 
+public extension Networkable {
+    
+    func request<T: Decodable>(_ endpoint: EndPointRequest, for type: T.Type) -> AnyPublisher<T, Error> {
+        request(endpoint, for: type, decoder: JSONDecoder()).eraseToAnyPublisher()
+    }
+}
+
 
 final public class NetworkService: Networkable {
     

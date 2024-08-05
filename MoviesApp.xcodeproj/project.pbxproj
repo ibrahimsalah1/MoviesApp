@@ -21,6 +21,7 @@
 		7DA167582C612E780030C3FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DA1675B2C612E780030C3FA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7DA167692C61340E0030C3FA /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkLayer; sourceTree = "<group>"; };
+		7DA1676E2C6180AF0030C3FA /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +76,7 @@
 		7DA167622C612EFA0030C3FA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7DA1676E2C6180AF0030C3FA /* Domain */,
 				7DA167692C61340E0030C3FA /* NetworkLayer */,
 			);
 			path = Core;
