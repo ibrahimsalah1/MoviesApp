@@ -12,6 +12,7 @@
 		7DA167592C612E780030C3FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA167582C612E780030C3FA /* Assets.xcassets */; };
 		7DA1675C2C612E780030C3FA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA1675B2C612E780030C3FA /* Preview Assets.xcassets */; };
 		7DA1676B2C614F730030C3FA /* NetworkLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA1676A2C614F730030C3FA /* NetworkLayer */; };
+		7DB281CC2C6203E10028700C /* Movies in Frameworks */ = {isa = PBXBuildFile; productRef = 7DB281CB2C6203E10028700C /* Movies */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		7DA1675B2C612E780030C3FA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7DA167692C61340E0030C3FA /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkLayer; sourceTree = "<group>"; };
 		7DA1676E2C6180AF0030C3FA /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
+		7DA167732C61FEC10030C3FA /* Movies */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Movies; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +32,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DA1676B2C614F730030C3FA /* NetworkLayer in Frameworks */,
+				7DB281CC2C6203E10028700C /* Movies in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +42,7 @@
 		7DA167482C612E770030C3FA = {
 			isa = PBXGroup;
 			children = (
+				7DA1676F2C61FDF00030C3FA /* Features */,
 				7DA167622C612EFA0030C3FA /* Core */,
 				7DA167532C612E770030C3FA /* MoviesApp */,
 				7DA167522C612E770030C3FA /* Products */,
@@ -89,6 +93,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7DA1676F2C61FDF00030C3FA /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				7DA167732C61FEC10030C3FA /* Movies */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,6 +119,7 @@
 			name = MoviesApp;
 			packageProductDependencies = (
 				7DA1676A2C614F730030C3FA /* NetworkLayer */,
+				7DB281CB2C6203E10028700C /* Movies */,
 			);
 			productName = MoviesApp;
 			productReference = 7DA167512C612E770030C3FA /* MoviesApp.app */;
@@ -374,6 +387,10 @@
 		7DA1676A2C614F730030C3FA /* NetworkLayer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkLayer;
+		};
+		7DB281CB2C6203E10028700C /* Movies */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Movies;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

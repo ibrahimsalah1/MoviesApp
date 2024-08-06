@@ -41,13 +41,4 @@ enum MovieEndPointRequest: EndPointRequest {
             
         }
     }
-    
-    var baseURL: URL? {
-        nil
-    }
-    
-    var headers: [String : String]? {
-        nil
-    }
-    
 }

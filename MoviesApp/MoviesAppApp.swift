@@ -7,12 +7,29 @@
 
 import SwiftUI
 import NetworkLayer
+import Movies
+import Domain
+import DomainData
 
 @main
 struct MoviesAppApp: App {
+    
+    let network: Networkable
+    
+    init() {
+        network = NetworkService()
+    }
+    
     var body: some Scene {
+        
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                MoviesListView(
+                    repository: MoviesRepository(
+                        networkService: network
+                    )
+                )
+            }
         }
     }
 }
