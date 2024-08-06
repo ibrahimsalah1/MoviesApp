@@ -8,17 +8,18 @@
 import SwiftUI
 import Domain
 import DomainData
-import NetworkLayer
+import Router
 
 public struct MoviesListView: View {
     
     //MARK: - Properties
     
     @ObservedObject private var viewModel: MoviesListViewModel
+    @EnvironmentObject private var router: Router
 
     //MARK: - Init
     
-    public init(repository: MoviesRepositoryProtocol) {
+    init(repository: MoviesRepositoryProtocol) {
         _viewModel = .init(wrappedValue: MoviesListViewModel(moviesRepository: repository))
     }
     
@@ -83,15 +84,15 @@ public struct MoviesListView: View {
         return ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(0..<movies.count, id: \.self) { index in
-                    NavigationLink(destination: MovieDetailsView(dependencies: .init(movie: movies[index], movieDetailRepository: MovieDetailsRepository(networkService: NetworkService())))) {
-                        MovieItemView(movie: movies[index])
-                            .onAppear {
-                                if index == (movies.count - 1) {
-                                    viewModel.loadMoreMovies()
-                                }
+                    MovieItemView(movie: movies[index])
+                        .onTapGesture {
+                            router.navigate(to: Destination.movieDetail(movie: movies[index]))
+                        }
+                        .onAppear {
+                            if index == (movies.count - 1) {
+                                viewModel.loadMoreMovies()
                             }
-                    }
-                    
+                        }
                 }
             }
         }

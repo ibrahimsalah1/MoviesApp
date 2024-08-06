@@ -16,6 +16,7 @@ let package = Package(
         .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "3.1.1"),
         .package(path: "../NetworkLayer"),
         .package(path: "../Domain"),
+        .package(path: "../Router"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -26,6 +27,7 @@ let package = Package(
             "NetworkLayer",
             "Domain",
             .product(name: "DomainData", package: "Domain"),
+            "Router",
             .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
         ]),
         .testTarget(
@@ -33,4 +35,3 @@ let package = Package(
             dependencies: ["Movies"]),
     ]
 )
-

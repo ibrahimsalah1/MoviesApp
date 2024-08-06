@@ -24,6 +24,7 @@
 		7DA167692C61340E0030C3FA /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkLayer; sourceTree = "<group>"; };
 		7DA1676E2C6180AF0030C3FA /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
 		7DA167732C61FEC10030C3FA /* Movies */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Movies; sourceTree = "<group>"; };
+		7DB281CD2C621DD30028700C /* Router */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Router; path = Features/Router; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,9 +43,9 @@
 		7DA167482C612E770030C3FA = {
 			isa = PBXGroup;
 			children = (
+				7DA167532C612E770030C3FA /* MoviesApp */,
 				7DA1676F2C61FDF00030C3FA /* Features */,
 				7DA167622C612EFA0030C3FA /* Core */,
-				7DA167532C612E770030C3FA /* MoviesApp */,
 				7DA167522C612E770030C3FA /* Products */,
 				7DA167652C6133390030C3FA /* Frameworks */,
 			);
@@ -80,6 +81,7 @@
 		7DA167622C612EFA0030C3FA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7DB281CD2C621DD30028700C /* Router */,
 				7DA1676E2C6180AF0030C3FA /* Domain */,
 				7DA167692C61340E0030C3FA /* NetworkLayer */,
 			);

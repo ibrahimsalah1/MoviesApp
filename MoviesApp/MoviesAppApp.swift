@@ -10,26 +10,26 @@ import NetworkLayer
 import Movies
 import Domain
 import DomainData
+import Router
 
 @main
 struct MoviesAppApp: App {
     
-    let network: Networkable
+    private let networkService: Networkable
+    @StateObject var router = Router()
     
     init() {
-        network = NetworkService()
+        networkService = NetworkService()
     }
+   
     
     var body: some Scene {
-        
         WindowGroup {
-            NavigationStack {
-                MoviesListView(
-                    repository: MoviesRepository(
-                        networkService: network
-                    )
-                )
+            NavigationStack(path: $router.navPath) {
+                MoviesCoordinator(dependencies: .init(network: networkService))
             }
+            .tint(.white)
+            .environmentObject(router)
         }
     }
 }
