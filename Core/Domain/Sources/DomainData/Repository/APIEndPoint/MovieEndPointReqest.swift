@@ -9,9 +9,10 @@ import Foundation
 import NetworkLayer
 
 enum MovieEndPointRequest: EndPointRequest {
-    
+
     case loadGenres
     case loadMovies(_ page: Int)
+    case loadMovieDetails(_ id: Int)
     
     var path: String {
         
@@ -21,6 +22,9 @@ enum MovieEndPointRequest: EndPointRequest {
             
         case .loadMovies:
             return MovieEndPoint.popularMovies
+            
+        case .loadMovieDetails(let id):
+            return "\(MovieEndPoint.movieDetails)/\(id)"
         }
     }
     
@@ -42,3 +46,4 @@ enum MovieEndPointRequest: EndPointRequest {
         }
     }
 }
+

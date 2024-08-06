@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Domain
+import DomainData
+import NetworkLayer
 
 public struct MoviesListView: View {
     
@@ -81,12 +83,15 @@ public struct MoviesListView: View {
         return ScrollView {
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(0..<movies.count, id: \.self) { index in
-                    MovieItemView(movie: movies[index])
-                        .onAppear {
-                            if index == (movies.count - 1) {
-                                viewModel.loadMoreMovies()
+                    NavigationLink(destination: MovieDetailsView(dependencies: .init(movie: movies[index], movieDetailRepository: MovieDetailsRepository(networkService: NetworkService())))) {
+                        MovieItemView(movie: movies[index])
+                            .onAppear {
+                                if index == (movies.count - 1) {
+                                    viewModel.loadMoreMovies()
+                                }
                             }
-                        }
+                    }
+                    
                 }
             }
         }
