@@ -9,7 +9,7 @@ import Foundation
 import Domain
 import NetworkLayer
 
-struct MoviesResponse: Decodable {
+public struct MoviesResponse: Codable {
     public var totalPages: Int?
     public let results: [MovieResponse]?
     
@@ -35,7 +35,7 @@ struct MoviesResponseMapper: Mappable {
     }
 }
 
-struct MovieResponse: Decodable {
+public struct MovieResponse: Codable {
     let id: Int?
     let title: String?
     let posterPath: String?
