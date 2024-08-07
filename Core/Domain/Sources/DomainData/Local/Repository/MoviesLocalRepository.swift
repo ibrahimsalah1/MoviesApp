@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Domain
 import CoreData
 
 public final class MoviesLocalRepository: MoviesLocalRepositoryProtocol {
@@ -108,4 +109,40 @@ public final class MoviesLocalRepository: MoviesLocalRepositoryProtocol {
         }
         return object
     }
+}
+
+
+public extension MoviesLocalRepository {
+    
+    func getGenres() -> AnyPublisher<[Genre], Error> {
+        let request: NSFetchRequest<GenresEntity> = GenresEntity.fetchRequest()
+        return fetch(request: request, context: persistentContainer.viewContext)
+            .map { entities in
+                entities.map { Genre(entity: $0) }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func save(genres: [Genre]) {
+        let context = persistentContainer.newBackgroundContext()
+        context.performAndWait {
+            let request = GenresEntity.fetchRequest()
+            
+            do {
+                let existingEntities = try context.fetch(request)
+                let existingIds = Set(existingEntities.map { Int($0.id) })
+                
+                for genre in genres where !existingIds.contains(genre.id) {
+                    let entity = GenresEntity(context: context)
+                    entity.id = Int64(genre.id)
+                    entity.name = genre.name.rawValue
+                }
+                
+                try context.save()
+            } catch {
+                print("Failed to save genres to core data: \(error)")
+            }
+        }
+    }
+    
 }

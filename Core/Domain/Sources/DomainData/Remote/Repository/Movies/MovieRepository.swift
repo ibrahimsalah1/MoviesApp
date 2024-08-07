@@ -35,6 +35,16 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
             for: GenresResponse.self
         )
         .map { $0.genres }
+        .map({ [weak self] genres in
+            self?.localMoviesRepository.save(genres: genres)
+            return genres
+        })
+        .catch { [weak self] error -> AnyPublisher<[Genre], Error> in
+            guard let self  else {
+                return Fail(error: error).eraseToAnyPublisher()
+            }
+            return self.localMoviesRepository.getGenres()
+        }
         .eraseToAnyPublisher()
     }
     
@@ -42,11 +52,14 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
         networkService.request(
             MovieEndPointRequest.loadMovies(page),
             for: MoviesResponse.self
-        ).tryMap { item in
-            self.localMoviesRepository.save(movies: item, pageIndex: page)
+        ).tryMap { [weak self] item in
+            self?.localMoviesRepository.save(movies: item, pageIndex: page)
             return try MoviesResponseMapper().map(item)
-        }.catch { error -> AnyPublisher<MoviesPage, Error> in
-            self.localMoviesRepository.getMovies(for: page)
+        }.catch { [weak self] error -> AnyPublisher<MoviesPage, Error> in
+            guard let self else {
+                return Fail(error: error).eraseToAnyPublisher()
+            }
+            return self.localMoviesRepository.getMovies(for: page)
                 .tryMap {
                     try MoviesResponseMapper().map($0)
                 }.eraseToAnyPublisher()
