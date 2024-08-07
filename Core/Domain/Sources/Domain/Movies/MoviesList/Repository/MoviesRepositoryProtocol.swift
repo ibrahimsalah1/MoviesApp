@@ -10,5 +10,5 @@ import Combine
 
 public protocol MoviesRepositoryProtocol {
      func loadGenres() -> AnyPublisher<[Genre], Error>
-     func loadMovies(page: Int) -> AnyPublisher<[Movie], Error>
+     func loadMovies(page: Int) -> AnyPublisher<MoviesPage, Error>
 }

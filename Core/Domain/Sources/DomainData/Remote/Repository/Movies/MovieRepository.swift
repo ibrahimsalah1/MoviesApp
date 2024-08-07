@@ -35,11 +35,13 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
         .eraseToAnyPublisher()
     }
     
-    public func loadMovies(page: Int) -> AnyPublisher<[Movie], Error> {
+    public func loadMovies(page: Int) -> AnyPublisher<MoviesPage, Error> {
         networkService.request(
             MovieEndPointRequest.loadMovies(page),
-            mapper: TrendingMovieResponseMapper()
-        )
+            for: MoviesResponse.self
+        ).tryMap { item in
+            return try MoviesResponseMapper().map(item)
+        }
         .eraseToAnyPublisher()
     }
     

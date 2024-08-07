@@ -9,24 +9,27 @@ import Foundation
 import Domain
 import Combine
 
-enum MoviesListUIState {
-    case loading, movies(items: [Movie]), error(error: Error)
-}
-
 public final class MoviesListViewModel: ObservableObject {
+    
+    enum MoviesListUIState {
+        case loading, movies(items: [Movie]), error(error: Error)
+    }
     
     //MARK: - Properties
     
     let moviesRepository: MoviesRepositoryProtocol
     private var movies = [Movie]()
+    private var isFetchingMoreMovies = false
+    private var page = 1
+    private var totalPages = 1
+    var cancellableBag = Set<AnyCancellable>()
+    
+    //MARK: - UI Properties
+    
     @Published private(set) var state: MoviesListUIState = .loading
     @Published var genres: [Genre] = []
     @Published var selectedGenreId = -1
     @Published var searchText = ""
-    private var isFetchingMoreMovies = false
-    private var hasNextPage = false
-    private var page = 1
-    var cancellableBag = Set<AnyCancellable>()
     
     //MARK: - init
     
@@ -53,8 +56,9 @@ public final class MoviesListViewModel: ObservableObject {
                     self.state = .error(error: error)
                     self.isFetchingMoreMovies = false
                 }
-            } receiveValue: { movies in
-                self.movies.append(contentsOf: movies)
+            } receiveValue: { moviesPage in
+                self.totalPages = moviesPage.totalPages
+                self.movies.append(contentsOf: moviesPage.movies)
                 print(self.movies)
                 self.filter()
                 self.isFetchingMoreMovies = false
@@ -64,7 +68,9 @@ public final class MoviesListViewModel: ObservableObject {
     
     
     func loadMoreMovies() {
-        guard !isFetchingMoreMovies else { return }
+        guard !isFetchingMoreMovies,
+              totalPages > page
+        else { return }
         page += 1
         loadMovies()
     }
@@ -91,7 +97,9 @@ public final class MoviesListViewModel: ObservableObject {
         if (selectedGenreId == -1) {
             return movies
         } else {
-            return movies.filter({ $0.genreIds.contains(selectedGenreId) })
+            return movies.filter({
+                $0.genreIds.contains(selectedGenreId)
+            })
         }
     }
     
@@ -99,7 +107,10 @@ public final class MoviesListViewModel: ObservableObject {
         guard !searchText.isEmpty else {
             return movies
         }
-        return movies.filter({ $0.title.lowercased().contains(searchText.lowercased()) })
+        
+        return movies.filter({
+            $0.title.lowercased().contains(searchText.lowercased())
+        })
     }
     
 }

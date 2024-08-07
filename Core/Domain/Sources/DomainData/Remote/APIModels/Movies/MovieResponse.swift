@@ -9,13 +9,29 @@ import Foundation
 import Domain
 import NetworkLayer
 
-struct TrendingMovieResponse: Decodable {
-    let results: [MovieResponse]
+struct MoviesResponse: Decodable {
+    public var totalPages: Int?
+    public let results: [MovieResponse]?
+    
+    public init(totalPages: Int?, results: [MovieResponse]?) {
+        self.totalPages = totalPages
+        self.results = results
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case results
+        case totalPages = "total_pages"
+    }
 }
 
-struct TrendingMovieResponseMapper: Mappable {
-    func map(_ input: TrendingMovieResponse) throws -> [Movie] {
-        return try input.results.compactMap { try MovieResponseMapper().map($0) }
+struct MoviesResponseMapper: Mappable {
+    
+    func map(_ input: MoviesResponse) throws -> MoviesPage {
+        let movies = try input.results?.compactMap { try MovieResponseMapper().map($0) } ?? []
+        return .init(
+            movies: movies,
+            totalPages: input.totalPages ?? 0
+        )
     }
 }
 

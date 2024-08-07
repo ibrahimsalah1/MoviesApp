@@ -7,6 +7,25 @@
 
 import Foundation
 
+public struct MoviesPage {
+    
+    //MARK: - Properties
+    
+    public let movies: [Movie]
+    public let totalPages: Int
+    
+    //MARK: - init
+    
+    public init(
+        movies: [Movie],
+        totalPages: Int
+    ) {
+        self.movies = movies
+        self.totalPages = totalPages
+       
+    }
+}
+
 public struct Movie: Equatable, Hashable, Identifiable {
     
     //MARK: - Properties

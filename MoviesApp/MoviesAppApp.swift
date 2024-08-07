@@ -8,25 +8,32 @@
 import SwiftUI
 import NetworkLayer
 import Movies
-import Domain
-import DomainData
 import Router
 
 @main
 struct MoviesAppApp: App {
     
+    //MARK: - Properties
+    
     private let networkService: Networkable
-    @StateObject var router = Router()
+    @StateObject private var router = Router()
+    
+    //MARK: - init
     
     init() {
         networkService = NetworkService()
     }
    
+    //MARK: - Body
     
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                MoviesCoordinator(dependencies: .init(network: networkService))
+                MoviesCoordinator(
+                    dependencies: .init(
+                        network: networkService
+                    )
+                )
             }
             .tint(.white)
             .environmentObject(router)
