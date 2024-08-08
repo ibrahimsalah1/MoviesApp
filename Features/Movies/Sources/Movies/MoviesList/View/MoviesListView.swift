@@ -79,7 +79,11 @@ public struct MoviesListView: View {
                 ForEach(0..<movies.count, id: \.self) { index in
                     MovieItemView(movie: movies[index])
                         .onTapGesture {
-                            router.navigate(to: Destination.movieDetail(movie: movies[index]))
+                            router.navigate(
+                                to: Destination.movieDetail(
+                                    movieId: movies[index].id
+                                )
+                            )
                         }
                         .onAppear {
                             if index == (movies.count - 1) {

@@ -13,7 +13,7 @@ import DomainData
 import NetworkLayer
 
 enum Destination: Hashable {
-    case movieDetail(movie: Movie)
+    case movieDetail(movieId: Int)
 }
 
 public struct MoviesCoordinator: View {
@@ -40,12 +40,12 @@ public struct MoviesCoordinator: View {
         .navigationDestination(for: Destination.self) { destination in
             switch destination {
                 
-            case .movieDetail(let movie):
+            case .movieDetail(let movieId):
                 
                 MovieDetailsView.init(
                     dependencies: .init(
                         
-                        movie: movie,
+                        movieId: movieId,
                         movieDetailRepository: MovieDetailsRepository(
                             networkService: dependencies.network
                         )

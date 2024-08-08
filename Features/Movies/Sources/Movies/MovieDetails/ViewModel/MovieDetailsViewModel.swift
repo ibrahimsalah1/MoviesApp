@@ -12,7 +12,7 @@ import Combine
 public final class MovieDetailsViewModel: ObservableObject {
     
     struct Dependencies {
-        let movie: Movie
+        let movieId: Int
         let movieDetailRepository: MovieDetailsRepositoryProtocol
     }
     
@@ -23,14 +23,14 @@ public final class MovieDetailsViewModel: ObservableObject {
     //MARK: - Properties
     
     private let moviesRepository: MovieDetailsRepositoryProtocol
-    private let movie: Movie
+    private let movieId: Int
     @Published private(set) var state: MovieDetailsUIState = .loading
     var cancellableBag = Set<AnyCancellable>()
     
     //MARK: - init
     
     init(dependencies: Dependencies) {
-        self.movie = dependencies.movie
+        self.movieId = dependencies.movieId
         moviesRepository = dependencies.movieDetailRepository
         loadData()
     }
@@ -39,7 +39,7 @@ public final class MovieDetailsViewModel: ObservableObject {
     
     private func loadData() {
         
-        moviesRepository.loadMoviesDetails(id: movie.id)
+        moviesRepository.loadMoviesDetails(id: movieId)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 switch completion {
