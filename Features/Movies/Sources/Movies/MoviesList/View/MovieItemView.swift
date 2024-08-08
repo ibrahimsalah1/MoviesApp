@@ -1,6 +1,6 @@
 //
 //  MovieItemView.swift
-//  
+//
 //
 //  Created by Ibrahim Salah on 06/08/2024.
 //
@@ -18,13 +18,14 @@ struct MovieItemView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
             
             WebImage(url: movie.posterPath) { image in
                 image.resizable()
                     .frame(height: 280)
             } placeholder: {
                 Image(systemName: "movieclapper")
+                    .frame(height: 280)
             }
             .indicator(.activity)
             .transition(.fade(duration: 0.5))
@@ -32,18 +33,20 @@ struct MovieItemView: View {
             
             Spacer()
             
-            Text(movie.title)
-                .font(.headline)
-                .lineLimit(2)
-                .padding(.vertical, 3)
-                .padding(.horizontal, 5)
-                .foregroundColor(.white)
-            
-            Text(movie.releaseDate)
-                .padding(.vertical, 10)
-                .padding(.horizontal, 5)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.white)
+            VStack(alignment: .leading) {
+                Text(movie.title)
+                    .font(.headline)
+                    .lineLimit(2)
+                    .padding(.vertical, 3)
+                    .padding(.horizontal, 5)
+                    .foregroundColor(.white)
+                
+                Text(movie.releaseDate)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 5)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.white)
+            }
             
             Spacer()
         }
