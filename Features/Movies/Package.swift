@@ -15,7 +15,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/SDWebImage/SDWebImageSwiftUI.git", from: "3.1.1"),
         .package(path: "../NetworkLayer"),
-        .package(path: "../Domain"),
+        .package(path: "../DataLayer"),
         .package(path: "../Router"),
     ],
     targets: [
@@ -25,8 +25,8 @@ let package = Package(
             name: "Movies",
             dependencies: [
             "NetworkLayer",
-            "Domain",
-            .product(name: "DomainData", package: "Domain"),
+            "DataLayer",
+            .product(name: "DomainData", package: "DataLayer"),
             "Router",
             .product(name: "SDWebImageSwiftUI", package: "SDWebImageSwiftUI"),
         ]),

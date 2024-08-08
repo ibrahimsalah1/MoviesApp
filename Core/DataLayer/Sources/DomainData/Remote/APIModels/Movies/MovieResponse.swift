@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Domain
+import DataLayer
 import NetworkLayer
 
 public struct MoviesResponse: Codable {

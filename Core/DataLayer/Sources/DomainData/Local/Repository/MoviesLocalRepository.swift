@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import Domain
+import DataLayer
 import CoreData
 
 public final class MoviesLocalRepository: MoviesLocalRepositoryProtocol {

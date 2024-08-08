@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import Domain
+import DataLayer
 
 
 extension GenresEntity {

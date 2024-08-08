@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Domain
+import DataLayer
 import DomainData
 import Router
 

@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import Domain
+import DataLayer
 import NetworkLayer
 
 public final class MovieDetailsRepository: MovieDetailsRepositoryProtocol {

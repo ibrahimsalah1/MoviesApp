@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 import Combine
-import Domain
+import DataLayer
 
 @testable import Movies
 
@@ -36,7 +36,7 @@ final class MoviesListViewModelTests: XCTestCase {
     
     //MARK: - Test methods
     
-    func test_initial_load_all_movies_with_out_any_filter() {
+    func test_initial_load_all_movies_with_out_any_filter_should_show_all_movies() {
         let expectation = expectation(description: "Wait for loading movies")
        
         viewModel.$state

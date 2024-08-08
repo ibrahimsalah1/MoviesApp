@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Domain
+import DataLayer
 import Combine
 
 public final class MoviesListViewModel: ObservableObject {
@@ -59,7 +59,6 @@ public final class MoviesListViewModel: ObservableObject {
             } receiveValue: { moviesPage in
                 self.totalPages = moviesPage.totalPages
                 self.movies.append(contentsOf: moviesPage.movies)
-                print(self.movies)
                 self.filter()
                 self.isFetchingMoreMovies = false
             }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Domain
+import DataLayer
 import Combine
 
 public final class MovieDetailsViewModel: ObservableObject {

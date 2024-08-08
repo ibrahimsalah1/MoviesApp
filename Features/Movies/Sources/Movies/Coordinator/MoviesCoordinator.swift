@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import Domain
+import DataLayer
 import Router
 import DomainData
 import NetworkLayer
@@ -44,6 +44,7 @@ public struct MoviesCoordinator: View {
                 
                 MovieDetailsView.init(
                     dependencies: .init(
+                        
                         movie: movie,
                         movieDetailRepository: MovieDetailsRepository(
                             networkService: dependencies.network

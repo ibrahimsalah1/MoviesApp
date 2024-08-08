@@ -7,7 +7,7 @@
 
 import Foundation
 import NetworkLayer
-import Domain
+import DataLayer
 import Combine
 
 public final class MoviesRepository: MoviesRepositoryProtocol {
@@ -15,7 +15,7 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
     //MARK: - Properties
     
     private let networkService: Networkable
-    private let localMoviesRepository: MoviesLocalRepositoryProtocol
+    private let localMoviesRepository: MoviesLocalRepositoryProtocol // Local movies data source
     
     //MARK: - Init
     
