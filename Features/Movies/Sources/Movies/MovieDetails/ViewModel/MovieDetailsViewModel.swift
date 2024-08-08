@@ -38,6 +38,7 @@ public final class MovieDetailsViewModel: ObservableObject {
     //MARK: - Methods
     
     private func loadData() {
+        
         moviesRepository.loadMoviesDetails(id: movie.id)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in

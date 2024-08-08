@@ -44,9 +44,6 @@ public struct MoviesListView: View {
                         genres: viewModel.genres,
                         selectedGenres: $viewModel.selectedGenreId
                     )
-                    .onChange(of: $viewModel.selectedGenreId.wrappedValue) { genreId in
-                        viewModel.filter()
-                    }
                     
                     loadMoviesList(movies)
                         .padding(.horizontal, 20)
@@ -60,10 +57,6 @@ public struct MoviesListView: View {
         .searchable(text: $viewModel.searchText)
         .foregroundStyle(.white)
         .accentColor(.white)
-        .onChange(of: $viewModel.searchText.wrappedValue) { value in
-            viewModel.filter()
-        }
-        
     }
     
     //MARK: - Methods

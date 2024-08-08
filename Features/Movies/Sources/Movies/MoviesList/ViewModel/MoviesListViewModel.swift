@@ -1,6 +1,6 @@
 //
 //  MoviesListViewModel.swift
-//  
+//
 //
 //  Created by Ibrahim Salah on 06/08/2024.
 //
@@ -28,8 +28,28 @@ public final class MoviesListViewModel: ObservableObject {
     
     @Published private(set) var state: MoviesListUIState = .loading
     @Published var genres: [Genre] = []
-    @Published var selectedGenreId = -1
-    @Published var searchText = ""
+    
+    @Published var selectedGenreId = -1 {
+        willSet {
+            let movies = filterSearch(
+                movies: movies,
+                withGenreId: newValue,
+                andSearchText: searchText
+            )
+            state = .movies(items: movies)
+        }
+    }
+    
+    @Published var searchText = "" {
+        willSet {
+            let movies = filterSearch(
+                movies: movies,
+                withGenreId: selectedGenreId,
+                andSearchText: newValue
+            )
+            state = .movies(items: movies)
+        }
+    }
     
     //MARK: - init
     
@@ -49,18 +69,27 @@ public final class MoviesListViewModel: ObservableObject {
         isFetchingMoreMovies = true
         moviesRepository.loadMovies(page: page)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self else { return }
                 switch completion {
                 case .finished: break
                 case .failure(let error):
-                    self.state = .error(error: error)
-                    self.isFetchingMoreMovies = false
+                    state = .error(error: error)
+                    isFetchingMoreMovies = false
                 }
-            } receiveValue: { moviesPage in
-                self.totalPages = moviesPage.totalPages
-                self.movies.append(contentsOf: moviesPage.movies)
-                self.filter()
-                self.isFetchingMoreMovies = false
+            } receiveValue: { [weak self] moviesPage in
+                guard let self else { return }
+                totalPages = moviesPage.totalPages
+                movies.append(contentsOf: moviesPage.movies)
+                state = .movies(
+                    items:
+                        filterSearch(
+                            movies: movies,
+                            withGenreId: selectedGenreId,
+                            andSearchText: searchText
+                        )
+                )
+                isFetchingMoreMovies = false
             }
             .store(in: &cancellableBag)
     }
@@ -83,26 +112,41 @@ public final class MoviesListViewModel: ObservableObject {
                 self.genres = genres
             }
             .store(in: &cancellableBag)
-        
     }
     
-    func filter() {
-        let movies = filterMovies(movies: movies)
-        let searchMovies = searchMovies(movies: movies)
-        state = .movies(items: searchMovies)
+    private func filterSearch(
+        movies: [Movie],
+        withGenreId genreId: Int,
+        andSearchText searchText: String
+    ) -> [Movie] {
+        let filteredMovies = filterMovies(
+            movies: movies,
+            withGenreId: genreId
+        )
+        let searchMovies = searchMovies(
+            movies: filteredMovies,
+            withSearchText: searchText
+        )
+        return searchMovies
     }
     
-    private func filterMovies(movies: [Movie]) -> [Movie] {
-        if (selectedGenreId == -1) {
+    private func filterMovies(
+        movies: [Movie],
+        withGenreId genreId: Int
+    ) -> [Movie] {
+        if (genreId == -1) {
             return movies
         } else {
             return movies.filter({
-                $0.genreIds.contains(selectedGenreId)
+                $0.genreIds.contains(genreId)
             })
         }
     }
     
-    private func searchMovies(movies: [Movie]) -> [Movie] {
+    private func searchMovies(
+        movies: [Movie],
+        withSearchText searchText: String
+    ) -> [Movie] {
         guard !searchText.isEmpty else {
             return movies
         }
