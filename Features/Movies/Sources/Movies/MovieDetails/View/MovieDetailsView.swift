@@ -41,6 +41,7 @@ struct MovieDetailsView: View {
                 
             case .error(let error):
                 Text(error.localizedDescription)
+                    .foregroundStyle(.white)
             }
         }
         .navigationBarTitle("", displayMode: .inline)
