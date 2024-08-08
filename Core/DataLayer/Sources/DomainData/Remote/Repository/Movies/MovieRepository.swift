@@ -15,13 +15,13 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
     //MARK: - Properties
     
     private let networkService: Networkable
-    private let localMoviesRepository: MoviesLocalRepositoryProtocol // Local movies data source
+    private let localMoviesRepository: LocalMoviesProviderProtocol // Local movies data source
     
     //MARK: - Init
     
     public init(
         networkService: Networkable,
-        localMoviesRepository: MoviesLocalRepositoryProtocol = MoviesLocalRepository()
+        localMoviesRepository: LocalMoviesProviderProtocol = LocalMoviesProvider()
     ) {
         self.networkService = networkService
         self.localMoviesRepository = localMoviesRepository

@@ -1,5 +1,5 @@
 //
-//  MoviesLocalRepository.swift
+//  LocalMoviesProvider.swift
 //
 //
 //  Created by Ibrahim Salah on 07/08/2024.
@@ -10,7 +10,7 @@ import Combine
 import DataLayer
 import CoreData
 
-public final class MoviesLocalRepository: MoviesLocalRepositoryProtocol {
+public final class LocalMoviesProvider: LocalMoviesProviderProtocol {
     
     //MARK: - Properties
     
@@ -112,7 +112,7 @@ public final class MoviesLocalRepository: MoviesLocalRepositoryProtocol {
 }
 
 
-public extension MoviesLocalRepository {
+public extension LocalMoviesProvider {
     
     func getGenres() -> AnyPublisher<[Genre], Error> {
         let request: NSFetchRequest<GenresEntity> = GenresEntity.fetchRequest()
