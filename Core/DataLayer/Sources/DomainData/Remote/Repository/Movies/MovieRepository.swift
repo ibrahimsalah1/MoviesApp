@@ -15,16 +15,16 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
     //MARK: - Properties
     
     private let networkService: Networkable
-    private let localMoviesRepository: LocalMoviesProviderProtocol // Local movies data source
+    private let localMoviesProvider: LocalMoviesProviderProtocol // Local movies data source
     
     //MARK: - Init
     
     public init(
         networkService: Networkable,
-        localMoviesRepository: LocalMoviesProviderProtocol = LocalMoviesProvider()
+        localMoviesProvider: LocalMoviesProviderProtocol = LocalMoviesProvider()
     ) {
         self.networkService = networkService
-        self.localMoviesRepository = localMoviesRepository
+        self.localMoviesProvider = localMoviesProvider
     }
     
     //MARK: - Methods
@@ -36,14 +36,14 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
         )
         .map { $0.genres }
         .map({ [weak self] genres in
-            self?.localMoviesRepository.save(genres: genres)
+            self?.localMoviesProvider.save(genres: genres)
             return genres
         })
         .catch { [weak self] error -> AnyPublisher<[Genre], Error> in
             guard let self  else {
                 return Fail(error: error).eraseToAnyPublisher()
             }
-            return self.localMoviesRepository.getGenres()
+            return self.localMoviesProvider.getGenres()
         }
         .eraseToAnyPublisher()
     }
@@ -53,13 +53,13 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
             MovieEndPointRequest.loadMovies(page),
             for: MoviesResponse.self
         ).tryMap { [weak self] item in
-            self?.localMoviesRepository.save(movies: item, pageIndex: page)
+            self?.localMoviesProvider.save(movies: item, pageIndex: page)
             return try MoviesResponseMapper().map(item)
         }.catch { [weak self] error -> AnyPublisher<MoviesPage, Error> in
             guard let self else {
                 return Fail(error: error).eraseToAnyPublisher()
             }
-            return self.localMoviesRepository.getMovies(for: page)
+            return self.localMoviesProvider.getMovies(for: page)
                 .tryMap {
                     try MoviesResponseMapper().map($0)
                 }.eraseToAnyPublisher()

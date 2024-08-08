@@ -21,7 +21,9 @@ struct MoviesAppApp: App {
     //MARK: - init
     
     init() {
-        networkService = NetworkService()
+        networkService = NetworkService(
+            configuration: .networkConfiguration
+        )
     }
    
     //MARK: - Body

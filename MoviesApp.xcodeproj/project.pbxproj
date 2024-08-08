@@ -13,6 +13,7 @@
 		7DA1676B2C614F730030C3FA /* NetworkLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA1676A2C614F730030C3FA /* NetworkLayer */; };
 		7DB281CC2C6203E10028700C /* Movies in Frameworks */ = {isa = PBXBuildFile; productRef = 7DB281CB2C6203E10028700C /* Movies */; };
 		7DF51EDE2C65383200C8FE23 /* DataLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 7DF51EDD2C65383200C8FE23 /* DataLayer */; };
+		7DF51EE12C65496500C8FE23 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF51EE02C65496500C8FE23 /* NetworkConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		7DA167732C61FEC10030C3FA /* Movies */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Movies; sourceTree = "<group>"; };
 		7DB281CD2C621DD30028700C /* Router */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Router; path = Features/Router; sourceTree = SOURCE_ROOT; };
 		7DF51EDC2C65373000C8FE23 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataLayer; sourceTree = "<group>"; };
+		7DF51EE02C65496500C8FE23 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		7DA167532C612E770030C3FA /* MoviesApp */ = {
 			isa = PBXGroup;
 			children = (
+				7DF51EDF2C65494C00C8FE23 /* Configuration */,
 				7DA167542C612E770030C3FA /* MoviesAppApp.swift */,
 				7DA167582C612E780030C3FA /* Assets.xcassets */,
 				7DA1675A2C612E780030C3FA /* Preview Content */,
@@ -100,6 +103,14 @@
 				7DA167732C61FEC10030C3FA /* Movies */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		7DF51EDF2C65494C00C8FE23 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				7DF51EE02C65496500C8FE23 /* NetworkConfiguration.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DA167552C612E770030C3FA /* MoviesAppApp.swift in Sources */,
+				7DF51EE12C65496500C8FE23 /* NetworkConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,9 +11,27 @@ import Combine
 
 final public class NetworkService: Networkable {
     
+    public struct Configuration {
+        let baseURL: URL?
+        let baseHeaders: [String: String]
+
+        public init(baseURL: URL?, baseHeaders: [String: String]) {
+            self.baseURL = baseURL
+            self.baseHeaders = baseHeaders
+        }
+
+        public static let `default` = Configuration(baseURL: nil, baseHeaders: [:])
+    }
+    
+    //MARK: - Properties
+    
+    private let configuration: Configuration
+    
     //MARK: - init
     
-    public init() {}
+    public init(configuration: Configuration = .default) {
+        self.configuration = configuration
+    }
     
     //MARK: - Methods
     
@@ -76,7 +94,7 @@ final public class NetworkService: Networkable {
     }
     
     private func getURLRequest(from endpoint: EndPointRequest) -> URLRequest? {
-        let host = endpoint.baseURL?.host
+        let host = endpoint.baseURL?.host ?? configuration.baseURL?.host
         guard let host = host else { return nil }
 
         var components = URLComponents()
@@ -101,6 +119,7 @@ final public class NetworkService: Networkable {
         var request = URLRequest(url: url)
         
         let endpointHeaders = endpoint.headers ?? [:]
+            .merging(configuration.baseHeaders) { (_, headers) in headers }
         request.allHTTPHeaderFields = endpointHeaders
         request.httpMethod = endpoint.httpMethod.rawValue
         return request

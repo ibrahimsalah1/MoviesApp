@@ -29,6 +29,7 @@ public final class MoviesListViewModel: ObservableObject {
     @Published private(set) var state: MoviesListUIState = .loading
     @Published var genres: [Genre] = []
     
+    // -1 Mean no filter with genre
     @Published var selectedGenreId = -1 {
         willSet {
             let movies = filterSearch(
