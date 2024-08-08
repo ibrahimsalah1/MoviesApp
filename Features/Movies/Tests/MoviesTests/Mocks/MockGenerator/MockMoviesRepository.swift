@@ -7,6 +7,7 @@
 
 import Foundation
 import DataLayer
+import NetworkLayer
 import Combine
 
 final class MockMoviesRepository: MoviesRepositoryProtocol {

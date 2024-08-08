@@ -9,6 +9,7 @@ import Foundation
 import XCTest
 import Combine
 import DataLayer
+import NetworkLayer
 
 @testable import Movies
 
@@ -55,7 +56,33 @@ final class MoviesListViewModelTests: XCTestCase {
         XCTAssertEqual(items.count, 3)
     }
     
-    func test_load_all_genres() {
+    func test_fail_to_load_movies_should_show_error() {
+        viewModel = .init(moviesRepository: MockMoviesRepositoryWithError())
+        
+        let expectation = expectation(description: "Wait for loading movies")
+       
+        viewModel.$state
+            .dropFirst()
+            .sink { state in
+                expectation.fulfill()
+            }.store(in: &cancellable)
+        
+        wait(for: [expectation])
+        
+        guard case .error(let error) = viewModel.state else {
+            XCTFail("Unexpected state: \(viewModel.state)")
+            return
+        }
+        
+        guard let apiError = error as? APIError else {
+            XCTFail("Unexpected error")
+            return
+        }
+        
+        XCTAssertEqual(apiError, .badServerResponse)
+    }
+    
+    func test_load_all_genres_should_load_all_genres() {
         
         let expectation = expectation(description: "Wait for loading genres")
         
@@ -69,7 +96,7 @@ final class MoviesListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.genres.count, 3)
     }
     
-    func test_search_for_movie_with_name() {
+    func test_search_for_movie_with_name_should_filter_movies_with_expected_name() {
         
         // Given
         
@@ -96,7 +123,7 @@ final class MoviesListViewModelTests: XCTestCase {
         XCTAssertEqual(items.first?.id, 2)
     }
     
-    func test_filter_for_movies_by_Genre() {
+    func test_filter_for_movies_by_Genre_should_filter_movies_with_expected_genre() {
         
         // Given
         
@@ -124,7 +151,7 @@ final class MoviesListViewModelTests: XCTestCase {
         XCTAssertEqual(items[1].id, 3)
     }
     
-    func test_filter_for_movies_by_genre_and_search_text() {
+    func test_filter_for_movies_by_genre_and_search_text_should_filter_movies_with_selected_search_and_filter() {
         
         // Given
         
@@ -152,7 +179,7 @@ final class MoviesListViewModelTests: XCTestCase {
         XCTAssertEqual(items.first?.id, 3)
     }
     
-    func test_empty_movies_with_selected_genre() {
+    func test_empty_movies_with_selected_genre_should_not_display_any_movie() {
         
         // Given
         
@@ -178,7 +205,7 @@ final class MoviesListViewModelTests: XCTestCase {
         XCTAssertEqual(items.count, 0)
     }
     
-    func test_empty_movies_with_search() {
+    func test_empty_movies_with_search_should_return_no_movies() {
         
         // Given
         
