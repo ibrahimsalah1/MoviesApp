@@ -23,9 +23,9 @@
 		7DA1675B2C612E780030C3FA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7DA167692C61340E0030C3FA /* NetworkLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkLayer; sourceTree = "<group>"; };
 		7DA167732C61FEC10030C3FA /* Movies */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Movies; sourceTree = "<group>"; };
-		7DB281CD2C621DD30028700C /* Router */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Router; path = Features/Router; sourceTree = SOURCE_ROOT; };
 		7DF51EDC2C65373000C8FE23 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DataLayer; sourceTree = "<group>"; };
 		7DF51EE02C65496500C8FE23 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
+		7DF51EE22C67A51100C8FE23 /* Router */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Router; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +83,8 @@
 		7DA167622C612EFA0030C3FA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7DF51EE22C67A51100C8FE23 /* Router */,
 				7DF51EDC2C65373000C8FE23 /* DataLayer */,
-				7DB281CD2C621DD30028700C /* Router */,
 				7DA167692C61340E0030C3FA /* NetworkLayer */,
 			);
 			path = Core;
