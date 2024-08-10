@@ -33,7 +33,7 @@ As a clean architecture, I should add use cases for production and large-scaling
 
 
 ## Requirements
-- Xcode 15+
+- Xcode 15.4+
 - iOS 16+
 
 ## Getting Started
