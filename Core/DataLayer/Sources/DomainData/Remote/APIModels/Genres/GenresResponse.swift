@@ -10,5 +10,5 @@ import Foundation
 
 struct GenresResponse: Decodable {
     
-    let genres: [Genre]
+    let genres: [Genre]?
 }

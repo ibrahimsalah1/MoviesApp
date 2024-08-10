@@ -30,7 +30,7 @@ struct MovieDetailsResponseMapper {
         }
         
         let imageCollection = movie.belongsToCollection
-        let languages = movie.spokenLanguages?.map(\.englishName).joined(separator: ", ") ?? ""
+        let languages = movie.spokenLanguages?.map { $0.englishName ?? "" }.joined(separator: ", ") ?? ""
         let genres = movie.genres?.map(\.name.rawValue).joined(separator: ", ") ?? ""
         
         return .init(

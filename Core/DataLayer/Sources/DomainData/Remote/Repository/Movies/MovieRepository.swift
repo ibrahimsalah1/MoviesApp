@@ -34,7 +34,7 @@ public final class MoviesRepository: MoviesRepositoryProtocol {
             MovieEndPointRequest.loadGenres,
             for: GenresResponse.self
         )
-        .map { $0.genres }
+        .map { $0.genres ?? [] }
         .map({ [weak self] genres in
             self?.localMoviesProvider.save(genres: genres)
             return genres
